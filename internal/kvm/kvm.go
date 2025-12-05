@@ -1,5 +1,8 @@
+package kvm
 
-package main
+import (
+	"syscall"
+)
 
 const (
     KVMIO = 0xAE00
@@ -16,6 +19,9 @@ func ioctl( fd uintptr, operation uintptr, arg uintptr ) (uintptr,error) {
 }
 
 func GetAPIVersion( fd uintptr ) (uintptr,error) {
-    v := ioctl( fd, uintptr(KVM_GET_API_VERSION), uintptr(0) )
-    return v
+	v, err := ioctl( fd, uintptr(KVM_GET_API_VERSION), uintptr(0) )
+	if err != nil {
+	     return uintptr(0), err
+	}
+	return v, nil
 }

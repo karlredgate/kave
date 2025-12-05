@@ -67,3 +67,5 @@ type Descriptor struct {
 	Limit uint64
 	_  [3]uint16
 }
+
+// func SetRegisters( ...
