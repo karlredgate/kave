@@ -1,5 +1,9 @@
 package kvm
 
+import (
+	"unsafe"
+)
+
 type Registers struct {
 	RAX uint64
 	RBX uint64
@@ -68,4 +72,35 @@ type Descriptor struct {
 	_  [3]uint16
 }
 
-// func SetRegisters( ...
+func (self *VCPU) SetRegisters(registers *Registers) (error) {
+	// regs := uintptr(unsafe.Pointer(&registers))
+	regs := uintptr(unsafe.Pointer(registers))
+	// ioctl(self.fd, uintptr(KVM_SET_REGS), uintptr(unsafe.Pointer(&registers)
+	_/*value*/, err := ioctl(uintptr(self.fd), KVM_SET_REGS, regs)
+	return err
+}
+
+func (self *VCPU) GetRegisters() (*Registers, error) {
+	registers := &Registers{}
+
+	// regs := uintptr(unsafe.Pointer(&registers))
+	regs := uintptr(unsafe.Pointer(registers))
+	// ioctl(self.fd, uintptr(KVM_SET_REGS), uintptr(unsafe.Pointer(&registers)
+	_/*value*/, err := ioctl(uintptr(self.fd), KVM_GET_REGS, regs)
+	if err != nil {
+		return nil, err
+	}
+	return registers, nil
+}
+
+func (self *VCPU) SetSegments(segments *Segments) (error) {
+	// regs := uintptr(unsafe.Pointer(&registers))
+	// ioctl(self.fd, uintptr(KVM_SET_REGS), uintptr(unsafe.Pointer(&registers)
+	return nil
+}
+
+func (self *VCPU) GetSegments() (*Segments, error) {
+	// regs := uintptr(unsafe.Pointer(&registers))
+	// ioctl(self.fd, uintptr(KVM_SET_REGS), uintptr(unsafe.Pointer(&registers)
+	return nil, nil
+}
