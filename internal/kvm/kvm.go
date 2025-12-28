@@ -20,10 +20,12 @@ const (
     KVM_GET_MSR_FEATURE_INDEX_LIST = KVMIO + 0x0A
 
     KVM_CREATE_VCPU                = KVMIO + 0x41
+    KVM_RUN                        = KVMIO + 0x80
 
     // need better way
     KVM_GET_REGS = 0x8090ae81
     KVM_SET_REGS = 0x4138AE84
+    KVM_SET_USER_MEMORY_REGION = 1075883590
 )
 //      NNN 41
 //      MMM 38

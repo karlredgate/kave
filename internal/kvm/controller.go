@@ -22,6 +22,18 @@ func New() (*Controller, error) {
 	return controller, nil
 }
 
+func (self *Controller) GetVCPUMmapSize() (uintptr, error) {
+	// result, err := self.ioctl(self.fd, KVM_CREATE_VCPU, uintptr(self.id))
+	// result, err := ioctl(uintptr(self.fd), KVM_GET_VCPU_MMAP_SIZE, uintptr(self.ID))
+	result, err := ioctl(uintptr(self.fd), KVM_GET_VCPU_MMAP_SIZE, uintptr(0))
+	if err != nil {
+		return uintptr(0), err
+	}
+
+	_ = result
+	return result, nil
+}
+
 func (control *Controller) ioctl(command uint, value uintptr) (uintptr, error) {
 	result, _, erno := syscall.Syscall(syscall.SYS_IOCTL, uintptr(control.fd), uintptr(command), value)
 

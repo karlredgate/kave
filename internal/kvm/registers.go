@@ -1,6 +1,7 @@
 package kvm
 
 import (
+	"fmt"
 	"unsafe"
 )
 
@@ -23,6 +24,13 @@ type Registers struct {
 	R15 uint64
 	RIP uint64
 	RFLAGS uint64
+}
+
+func (r *Registers) String() string {
+	return fmt.Sprintf(
+	    "RAX:0x%x RBX:0x%x RCX:0x%x RDX:0x%016x\n",
+	    r.RAX, r.RBX, r.RCX, r.RDX,
+	)
 }
 
 type Segments struct {
